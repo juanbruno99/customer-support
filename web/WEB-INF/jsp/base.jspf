@@ -1,0 +1,4 @@
+<%@ page import="com.tikcom.servlets.TicketServlet, com.tikcom.domain.Attachment" %>
+<%@page import="com.tikcom.domain.Attachment"%>
+<%@page import="com.tikcom.domain.Ticket"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
