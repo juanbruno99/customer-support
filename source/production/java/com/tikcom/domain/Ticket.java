@@ -28,7 +28,7 @@ public class Ticket
 	@Column(name = "BODY")
     private String body;
 
-	//until applying DER specs and embeddable in hibernate make transient
+	//until applying DER specs in hibernate make transient
     @Transient
     private Map<String, Attachment> attachments = new LinkedHashMap<>();
 
