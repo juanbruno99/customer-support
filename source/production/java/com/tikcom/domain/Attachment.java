@@ -4,7 +4,7 @@ package com.tikcom.domain;
  * @author juanm
  * @since 21-11-2014
  * 
- * Basic attachment object, composed primarily of a name to describe it breafly and the byte contents
+ * Basic attachment object, composed primarily of a name to describe it briefly and the byte contents
  * */
 public class Attachment
 {

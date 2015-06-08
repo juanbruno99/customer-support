@@ -42,11 +42,6 @@ public class TicketServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		
-		//first check for logged user by checking session username attribute (may have been set up in login post)
-		//if user not logged in return from method with response redirected to login servlet
-		if(!checkUserLogged(request, response))
-			return;
-		
 		String action = request.getParameter("action");
 		if (action == null)
 			action = "list";
@@ -66,19 +61,9 @@ public class TicketServlet extends HttpServlet {
 		}
 	}
 
-	private boolean checkUserLogged(HttpServletRequest request, HttpServletResponse response) throws IOException {
-		if(request.getSession().getAttribute("username") == null) {
-			response.sendRedirect(ServletUrlPaths.LOGIN_PATH);
-			return false;
-		}
-		return true;
-	}
-
 	@Override
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
-		
-		checkUserLogged(request, response);
 		
 		String action = request.getParameter("action");
 		if (action == null)
