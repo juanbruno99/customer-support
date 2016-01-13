@@ -28,16 +28,4 @@
     	<tracking-mode>COOKIE</tracking-mode>
     </session-config>
     
-    <!-- 
-    <context-param>
-    	<param-name>settingOne</param-name>
-    	<param-value>foo</param-value>
-    </context-param>
-    
-    
-    <context-param>
-    	<param-name>settingTwo</param-name>
-    	<param-value>bar</param-value>
-    </context-param>
- 	-->
 </web-app>

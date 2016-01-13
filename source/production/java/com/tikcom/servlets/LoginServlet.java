@@ -11,6 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
+import com.tikcom.dictionaries.LoggingDictionary;
 import com.tikcom.utils.url.ServletUrlPaths;
 
 @WebServlet(
@@ -21,8 +25,9 @@ import com.tikcom.utils.url.ServletUrlPaths;
 public class LoginServlet extends HttpServlet {
 	
 	private static final long serialVersionUID = -2274968532182296118L;
+	private static final Logger log = LogManager.getLogger();
 	
-	//serves for now as in memory rudimentary DB
+	//serves for now as in memory rudimentary DBs
 	private static final Map<String, String> userDatabse = new Hashtable<String, String>();
 	
 	static {
@@ -86,6 +91,7 @@ public class LoginServlet extends HttpServlet {
 				
 				req.setAttribute("loginFailed", true);
 				req.getRequestDispatcher(ServletUrlPaths.LOGIN_JSP_PATH).forward(req, resp);
+				log.info(LoggingDictionary.FAILED_LOGIN, username);
 		}
 		else { //else send to tickets page and set additional security to prevent session fixation attack
 				/**

@@ -8,12 +8,16 @@ import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionIdListener;
 import javax.servlet.http.HttpSessionListener;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import com.tikcom.utils.session.SessionRegistry;
 
 /**
  * @author juanm
  * 
- * Class is a listener for session events and logging of them
+ * Class is a listener for session events and logging of them [Java EE built in sessions listener]
+ * It also uses helper class @SessionRegistry
  * */
 
 
@@ -21,26 +25,34 @@ import com.tikcom.utils.session.SessionRegistry;
 @WebListener
 public class SessionListener implements HttpSessionListener, HttpSessionIdListener {
 
+	private static final Logger log = LogManager.getLogger();
+	
 	private SimpleDateFormat formatter = new SimpleDateFormat("EEE, d MMM yyyy HH:mm:ss");
+	
+	//hardcoded config for now
+	private boolean logSessionsActivity = false;
 	
 	@Override
 	public void sessionIdChanged(HttpSessionEvent event, String oldSession) {
-		//to replace with Log framework, for now console logging
-		System.out.println(this.date() + " :Session ID" + oldSession + " changed to" + event.getSession().getId());
+		if(logSessionsActivity)
+			log.info(this.date() + " :Session ID" + oldSession + " changed to" + event.getSession().getId());
+		
 		SessionRegistry.updateSession(event.getSession(), oldSession);
 	}
 
 	@Override
 	public void sessionCreated(HttpSessionEvent event) {
-		//to replace with Log framework, for now console logging
-		System.out.println(this.date() + " :Session " + event.getSession().getId() + " created");
+		if(logSessionsActivity)
+			log.info(this.date() + " :Session " + event.getSession().getId() + " created");
+		
 		SessionRegistry.addSession(event.getSession());
 	}
 
 	@Override
 	public void sessionDestroyed(HttpSessionEvent event) {
-		//to replace with Log framework, for now console logging
-		System.out.println(this.date() + " :Session " + event.getSession().getId() + " destroyed");
+		if(logSessionsActivity)
+			log.info(this.date() + " :Session " + event.getSession().getId() + " destroyed");
+		
 		SessionRegistry.removeSession(event.getSession());
 	}
 	
